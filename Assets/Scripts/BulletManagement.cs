@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletMouvement : MonoBehaviour
+public class BulletManagement : MonoBehaviour
 {
 
     #region Exposed

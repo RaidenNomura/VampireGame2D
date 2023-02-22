@@ -5,14 +5,17 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class PlayerController : MonoBehaviour
+public class PlayerManagement : MonoBehaviour
 {
     #region Exposed
+
+    [SerializeField] private GameObject _bulletPrefab;
+    [SerializeField] GameObject _endScreen;
 
     [SerializeField] private float _speedPlayer = 3;
     [SerializeField] private float _speedBullet = 30;
     [SerializeField] private float _fireRate = 1f;
-    [SerializeField] private GameObject _bulletPrefab;
+    [SerializeField] int _playerHealth = 1;
 
     #endregion
 
@@ -28,9 +31,22 @@ public class PlayerController : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
     }
 
-    void FixedUpdate()
+    void Update()
     {
         SetBullet();
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            _playerHealth--;
+            if (_playerHealth <= 0)
+            {
+                _endScreen.SetActive(true);
+                Debug.Log("pouk");
+            }
+        }
     }
 
     #endregion
@@ -47,7 +63,7 @@ public class PlayerController : MonoBehaviour
     {
         if (context.performed)
         {
-            //SetBullet();
+            SetBullet();
         }
     }
 

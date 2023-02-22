@@ -7,8 +7,8 @@ public class KillCounter : MonoBehaviour
 {
     #region Exposed
 
-    [SerializeField] private TextMeshProUGUI scoreDisplay;
-    public static int scoreValue;
+    [SerializeField] private TextMeshProUGUI _scoreDisplay;
+    public static int _scoreValue = 0;
 
     #endregion
 
@@ -16,7 +16,8 @@ public class KillCounter : MonoBehaviour
 
     void Start()
     {
-        scoreDisplay = GetComponent<TextMeshProUGUI>();
+        _scoreDisplay = GetComponent<TextMeshProUGUI>();
+        _scoreValue = 0;
     }
 
     private void Update()
@@ -30,7 +31,7 @@ public class KillCounter : MonoBehaviour
 
     public void AddScore()
     {
-        scoreDisplay.text = "Kills : " + scoreValue;
+        _scoreDisplay.text = "Kills : " + _scoreValue;
     }
 
     #endregion

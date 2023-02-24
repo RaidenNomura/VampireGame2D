@@ -65,11 +65,12 @@ public class PlayerManagement : MonoBehaviour
         {
             RewardsEffects._monEvent.Invoke();
         }
-        */
+        
         if (context.performed)
         {
             _reloadTime = 0.01f;
         }
+        */
     }
 
     private void SetVelocity(Vector2 _direction)

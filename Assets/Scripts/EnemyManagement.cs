@@ -10,6 +10,7 @@ public class EnemyManagement: MonoBehaviour
 
     [SerializeField] private int _enemyHealth = 3;
     [SerializeField] private float _enemySpeed = 3;
+    public RewardsEffects RewardsEffects;
 
     #endregion
 
@@ -43,8 +44,8 @@ public class EnemyManagement: MonoBehaviour
                 _collider.isTrigger = true;
                 _animator.SetTrigger("isDead");
 
-                //rwMana.ShootEnemy(transform.position);
-                //rwMana.MonEvent.Invoke(transform.position);
+                RewardsEffects.ShootEnemy(transform.position);
+                //RewardsEffects.MonEvent.Invoke(transform.position);
 
                 Destroy(gameObject, 1);
             }
@@ -64,8 +65,6 @@ public class EnemyManagement: MonoBehaviour
     private Transform _moveTarget;
     private Animator _animator;
     private BoxCollider2D _collider;
-
-    private RewardsEffects rwMana; //rwMana = rewardsEffects
 
     #endregion
 

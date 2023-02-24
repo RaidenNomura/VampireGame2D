@@ -74,8 +74,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: -1589543558, guid: af54fa48111cd01419d62adcc4b6525f, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -199,7 +199,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b52a315ea6436bd4f8a86bbe67c92a08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletPrefab: {fileID: 716527816119809226, guid: 8e5ee6bf0903d6048b6b054c042f0250, type: 3}
   _enemyHealth: 1
   _enemySpeed: 6
-  _speedBullet: 30
+  RewardsEffects: {fileID: 4924537529780553181, guid: 8896b88213831f143a7846895056ab09, type: 3}

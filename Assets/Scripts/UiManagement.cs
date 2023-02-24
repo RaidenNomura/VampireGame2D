@@ -15,20 +15,21 @@ public class UiManagement : MonoBehaviour
     
     void Start()
     {
-        
+
     }
 
     void Update()
     {
-        
+
     }
 
     #endregion
 
     #region Methods
-
-    public void test()
+    
+    public void RestartGame()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(0);
     }
 

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyManagement: MonoBehaviour
 {
@@ -21,12 +21,12 @@ public class EnemyManagement: MonoBehaviour
         _collider = GetComponent<BoxCollider2D>();
     }
 
-    void Start()
+    private void Start()
     {
         _moveTarget = GameObject.Find("Player").transform;
     }
 
-    void Update()
+    private void Update()
     {
         if (_enemyHealth > 0)
             transform.position = Vector2.MoveTowards(transform.position, _moveTarget.position, _enemySpeed * Time.deltaTime);
@@ -42,6 +42,10 @@ public class EnemyManagement: MonoBehaviour
                 KillCounter._scoreValue += 1;
                 _collider.isTrigger = true;
                 _animator.SetTrigger("isDead");
+
+                //rwMana.ShootEnemy(transform.position);
+                //rwMana.MonEvent.Invoke(transform.position);
+
                 Destroy(gameObject, 1);
             }
         }
@@ -58,9 +62,10 @@ public class EnemyManagement: MonoBehaviour
     #region Private & Protected
 
     private Transform _moveTarget;
-    private float _attackTimer;
     private Animator _animator;
     private BoxCollider2D _collider;
+
+    private RewardsEffects rwMana; //rwMana = rewardsEffects
 
     #endregion
 

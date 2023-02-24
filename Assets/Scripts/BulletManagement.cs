@@ -13,6 +13,12 @@ public class BulletManagement : MonoBehaviour
 
     #region Unity Lifecycle
 
+    private void Start()
+    {
+        Physics2D.IgnoreLayerCollision(6, 7);
+        Physics2D.IgnoreLayerCollision(7, 7);
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))

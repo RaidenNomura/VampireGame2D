@@ -3,19 +3,18 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 public class PlayerManagement : MonoBehaviour
 {
     #region Exposed
 
     [SerializeField] private GameObject _bulletPrefab;
-    [SerializeField] GameObject _endScreen;
+    [SerializeField] private GameObject _endScreen;
 
     [SerializeField] private float _speedPlayer = 3;
     [SerializeField] private float _speedBullet = 30;
     [SerializeField] private float _fireRate = 1f;
-    [SerializeField] int _playerHealth = 1;
+    [SerializeField] private int _playerHealth = 1;
 
     #endregion
 
@@ -31,7 +30,7 @@ public class PlayerManagement : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    private void Update()
     {
         SetBullet();
     }
@@ -43,8 +42,8 @@ public class PlayerManagement : MonoBehaviour
             _playerHealth--;
             if (_playerHealth <= 0)
             {
+                Time.timeScale = 0f;
                 _endScreen.SetActive(true);
-                Debug.Log("pouk");
             }
         }
     }
@@ -61,19 +60,26 @@ public class PlayerManagement : MonoBehaviour
 
     public void Attack(InputAction.CallbackContext context)
     {
+        /*
+        if (context.started)
+        {
+            RewardsEffects._monEvent.Invoke();
+        }
+        */
         if (context.performed)
         {
-            SetBullet();
+            _reloadTime = 0.01f;
         }
     }
 
-    void SetVelocity(Vector2 _direction)
+    private void SetVelocity(Vector2 _direction)
     {
         _horizontal = _direction.x;
         _vertical = _direction.y;
+        Flip();
     }
 
-    void SetBullet()
+    private void SetBullet()
     {
         if (Time.timeSinceLevelLoad > _reloadTime)
         {
@@ -85,6 +91,34 @@ public class PlayerManagement : MonoBehaviour
                 _bullet.GetComponent<Rigidbody2D>().velocity = _dir[i] * _speedBullet;
                 Destroy(_bullet, 3);
             }
+            //
+
+            SetDiagBullet();
+
+            //
+        }
+    }
+
+    private void SetDiagBullet()
+    {
+        for (int i = 0; i <= 3; i++)
+        {
+            _reloadTime = Time.timeSinceLevelLoad + _fireRate;
+            _bullet = Instantiate(_bulletPrefab, transform.position + _dirD[i], transform.rotation);
+            _bullet.GetComponent<Rigidbody2D>().velocity = _dirD[i] * _speedBullet;
+            Destroy(_bullet, 3);
+        }
+    }
+
+    private void Flip()
+    {
+        if (_horizontal < 0f)
+        {
+            transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        }
+        else if (_horizontal > 0f)
+        {
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
     }
 
@@ -99,6 +133,14 @@ public class PlayerManagement : MonoBehaviour
     new Vector2(-1, 0),
     new Vector2(1, 0)
     };
+
+    private Vector3[] _dirD = new Vector3[4]
+{
+    new Vector2(-1, 1),
+    new Vector2(1, 1),
+    new Vector2(-1, -1),
+    new Vector2(1, -1)
+};
 
     private GameObject _bullet;
     private Rigidbody2D _rb;
